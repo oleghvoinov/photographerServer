@@ -1,0 +1,10 @@
+{
+  "username": "adminVika",
+  "password": "adminVika8365",
+  "serverPort": 5000,
+  "secretKey": "mern-secrt-key",
+  "dbName": "user-bratigina",
+  "dbFile": "files-bratigina",
+  "mainPageFile": "./files/mainPage",
+  "dirFiles": "C:\\Users\\okhvo\\Desktop\\Братыгина приложение\\client\\public\\files\\portfolio"
+}
