@@ -16,9 +16,9 @@ class FileService {
     return new Promise((resolve, reject) => {
       try {
         if (!fs.existsSync(filePath)) {
-          fs.mkdirSync(filePath);
-          fs.mkdirSync(path.join(filePath, "prewie"));
-          fs.mkdirSync(path.join(filePath, "children"));
+          fs.mkdirSync(filePath, { recursive: true });
+          fs.mkdirSync(path.join(filePath, "prewie"), { recursive: true });
+          fs.mkdirSync(path.join(filePath, "children"), { recursive: true });
 
           return resolve({ message: "File was created" });
         } else {
