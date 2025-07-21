@@ -749,6 +749,8 @@ class FileController {
         String(file.name)
       );
 
+      console.log(path.dirname(pathFile));
+
       fs.mkdirSync(path.dirname(pathFile), { recursive: true });
 
       file.mv(pathFile);
