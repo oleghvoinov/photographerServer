@@ -238,23 +238,6 @@ class FileController {
           .json({ message: `Ошибка при удалении папки: ${e.message}` });
       }
 
-      // for (let i = 0; i < dir.prewieImg.length; i++) {
-      //   try {
-      //     const prewieFile = await db.get(dir.prewieImg[i].id);
-
-      //     await db.destroy(prewieFile._id, prewieFile._rev);
-      //   } catch (e) {}
-      // }
-      // for (let j = 0; j < dir.children.length; j++) {
-      //   for (let i = 0; i < dir.children[j].tab.length; i++) {
-      //     try {
-      //       const childrenFile = await db.get(dir.children[j].tab[i].id);
-
-      //       await db.destroy(childrenFile._id, childrenFile._rev);
-      //     } catch (e) {}
-      //   }
-      // }
-
       try {
         const { rows } = await db.view(prewDesign, prewIndexName, {
           include_docs: true,
@@ -298,10 +281,10 @@ class FileController {
         if (flag) {
           console.log("Удаляем основной документ:", dir._id, dir._rev);
           await db.destroy(dir._id, dir._rev);
-        }else{
+        } else {
           return res
-          .status(400)
-          .json({ message: "Кейс удален не полностью, попробуйте ещё раз!" });
+            .status(400)
+            .json({ message: "Кейс удален не полностью, попробуйте ещё раз!" });
         }
       } catch (e) {
         return res
@@ -571,6 +554,8 @@ class FileController {
         );
       }
 
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+
       fs.writeFileSync(
         path.join(
           __dirname,
@@ -763,6 +748,8 @@ class FileController {
         "mainPage",
         String(file.name)
       );
+
+      fs.mkdirSync(path.dirname(pathFile), { recursive: true });
 
       file.mv(pathFile);
 
