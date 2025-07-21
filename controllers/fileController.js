@@ -400,7 +400,7 @@ class FileController {
       const prewieImg = {
         name: file.name,
         path: path.join(
-          "/",
+          __dirname,
           "uploads",
           "portfolio",
           `${result.index}`,
@@ -573,7 +573,7 @@ class FileController {
       const childrenImg = {
         name: file.name,
         path: path.join(
-          "/",
+          __dirname,
           "uploads",
           "portfolio",
           String(result.index),
@@ -759,7 +759,7 @@ class FileController {
         name: file.name,
         type,
         local: "MainPage",
-        path: path.join("/", "uploads", "mainPage", String(file.name)),
+        path: path.join(__dirname, "uploads", "mainPage", String(file.name)),
         yandexPath: yandexPath,
         size: file.size,
         date: new Date(),
@@ -1276,7 +1276,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/",
+                    __dirname,
                     "uploads",
                     "portfolio",
                     String(result.index),
@@ -1487,7 +1487,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/",
+                    __dirname,
                     "uploads",
                     "portfolio",
                     String(result.index),
@@ -1653,7 +1653,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/",
+                    __dirname,
                     "uploads",
                     "portfolio",
                     String(result.index),
