@@ -401,6 +401,7 @@ class FileController {
         name: file.name,
         path: path.join(
           __dirname,
+          "..",
           "uploads",
           "portfolio",
           `${result.index}`,
@@ -574,6 +575,7 @@ class FileController {
         name: file.name,
         path: path.join(
           __dirname,
+          "..",
           "uploads",
           "portfolio",
           String(result.index),
@@ -759,7 +761,13 @@ class FileController {
         name: file.name,
         type,
         local: "MainPage",
-        path: path.join(__dirname, "uploads", "mainPage", String(file.name)),
+        path: path.join(
+          __dirname,
+          "..",
+          "uploads",
+          "mainPage",
+          String(file.name)
+        ),
         yandexPath: yandexPath,
         size: file.size,
         date: new Date(),
@@ -1277,6 +1285,7 @@ class FileController {
                   name: fileName,
                   path: path.join(
                     __dirname,
+                    "..",
                     "uploads",
                     "portfolio",
                     String(result.index),
@@ -1488,6 +1497,7 @@ class FileController {
                   name: fileName,
                   path: path.join(
                     __dirname,
+                    "..",
                     "uploads",
                     "portfolio",
                     String(result.index),
@@ -1654,6 +1664,7 @@ class FileController {
                   name: fileName,
                   path: path.join(
                     __dirname,
+                    "..",
                     "uploads",
                     "portfolio",
                     String(result.index),
