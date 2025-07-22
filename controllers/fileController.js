@@ -380,7 +380,7 @@ class FileController {
         const outputPath = path.join(
           "/var",
           "www",
-          "uploads",
+          "/uploads",
           "portfolio",
           `${result.index}`,
           "prewie",
@@ -400,9 +400,7 @@ class FileController {
       const prewieImg = {
         name: file.name,
         path: path.join(
-          "/var",
-          "www",
-          "uploads",
+          "/uploads",
           "portfolio",
           `${result.index}`,
           "prewie",
@@ -464,8 +462,8 @@ class FileController {
 
       fs.unlinkSync(
         path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(dir.index),
@@ -574,9 +572,7 @@ class FileController {
       const childrenImg = {
         name: file.name,
         path: path.join(
-          "/var",
-          "www",
-          "uploads",
+          "/uploads",
           "portfolio",
           String(result.index),
           "children",
@@ -761,13 +757,7 @@ class FileController {
         name: file.name,
         type,
         local: "MainPage",
-        path: path.join(
-          "/var",
-          "www",
-          "uploads",
-          "mainPage",
-          String(file.name)
-        ),
+        path: path.join("/uploads", "mainPage", String(file.name)),
         yandexPath: yandexPath,
         size: file.size,
         date: new Date(),
@@ -1284,9 +1274,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/var",
-                    "www",
-                    "uploads",
+                    "/uploads",
                     "portfolio",
                     String(result.index),
                     "children",
@@ -1496,9 +1484,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/var",
-                    "www",
-                    "uploads",
+                    "/uploads",
                     "portfolio",
                     String(result.index),
                     "children",
@@ -1663,9 +1649,7 @@ class FileController {
                 const childrenImg = {
                   name: fileName,
                   path: path.join(
-                    "/var",
-                    "www",
-                    "uploads",
+                    "/uploads",
                     "portfolio",
                     String(result.index),
                     "children",
