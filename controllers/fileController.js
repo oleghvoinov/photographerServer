@@ -378,8 +378,8 @@ class FileController {
 
       try {
         const outputPath = path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           `${result.index}`,
