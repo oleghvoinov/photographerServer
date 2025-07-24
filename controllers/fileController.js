@@ -148,8 +148,8 @@ class FileController {
 
       try {
         const folderPath = path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(dir.index)
@@ -380,7 +380,7 @@ class FileController {
         const outputPath = path.join(
           "/var",
           "www",
-          "/uploads",
+          "uploads",
           "portfolio",
           `${result.index}`,
           "prewie",
@@ -557,8 +557,8 @@ class FileController {
 
       fs.writeFileSync(
         path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(result.index),
@@ -671,8 +671,8 @@ class FileController {
 
       fs.unlinkSync(
         path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(dir.index),
@@ -794,7 +794,7 @@ class FileController {
         const file = resultMain.rows[0].doc;
 
         fs.unlinkSync(
-          path.join(__dirname, "..", "uploads", "mainPage", String(file.name))
+          path.join("/var", "www", "uploads", "mainPage", String(file.name))
         );
 
         const result = await db.destroy(file._id, file._rev);
@@ -904,8 +904,8 @@ class FileController {
         dir.children.push({ index, name, tab: [] });
 
         const filePath = path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(dir.index),
@@ -955,8 +955,8 @@ class FileController {
 
       try {
         const folderPath = path.join(
-          __dirname,
-          "..",
+          "/var",
+          "www",
           "uploads",
           "portfolio",
           String(dir.index),
@@ -1080,7 +1080,10 @@ class FileController {
               }
 
               const outputPath = path.join(
-                config.get("dirFiles"),
+                "/var",
+                "www",
+                "uploads",
+                "portfolio",
                 `${result.index}`,
                 "children",
                 `${index}`,
@@ -1219,7 +1222,10 @@ class FileController {
               }
 
               const outputPath = path.join(
-                config.get("dirFiles"),
+                "/var",
+                "www",
+                "uploads",
+                "portfolio",
                 `${result.index}`,
                 "children",
                 `${index}`,
@@ -1411,8 +1417,8 @@ class FileController {
               }
 
               const outputPath = path.join(
-                __dirname,
-                "..",
+                "/var",
+                "www",
                 "uploads",
                 "portfolio",
                 `${result.index}`,
@@ -1749,7 +1755,10 @@ class FileController {
             }
 
             const outputPath = path.join(
-              config.get("dirFiles"),
+              "/var",
+              "www",
+              "uploads",
+              "portfolio",
               `${result.index}`,
               "children",
               `${index}`,

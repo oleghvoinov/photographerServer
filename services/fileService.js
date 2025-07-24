@@ -6,8 +6,8 @@ const sharp = require("sharp");
 class FileService {
   createProject(name) {
     const filePath = path.join(
-      __dirname,
-      "..",
+      "/var",
+      "www",
       "uploads",
       "portfolio",
       String(name)
@@ -32,7 +32,7 @@ class FileService {
     });
   }
   getPathMainPage(file) {
-    return path.join(__dirname, "..", "uploads", "mainPage", String(file.name));
+    return path.join("/var", "www", "uploads", "mainPage", String(file.name));
   }
   async deleteFileMainPage(file) {}
 
