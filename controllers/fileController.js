@@ -553,7 +553,18 @@ class FileController {
         );
       }
 
-      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.mkdirSync(
+        path.join(
+          "/var",
+          "www",
+          "uploads",
+          "portfolio",
+          String(result.index),
+          "children",
+          String(index)
+        ),
+        { recursive: true }
+      );
 
       fs.writeFileSync(
         path.join(
