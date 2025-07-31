@@ -1004,7 +1004,7 @@ class FileController {
       let update;
 
       for (let j = 0; j < dir.children.length; j++) {
-        if (dir.children[i].index == index) {
+        if (dir.children[j].index == index) {
           for (let i = 0; i < dir.children[j].tab.length; i++) {
             try {
               const childrenFile = await db.get(dir.children[j].tab[i].id);
