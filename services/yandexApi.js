@@ -100,7 +100,7 @@ class YandexApi {
     }
   }
 
-  async downloadFile(res, req) {
+  async downloadFile(req, res) {
     const { path, name } = req.query;
 
     console.log("➡️ Запрос на скачивание:");
