@@ -12,7 +12,7 @@ const PORT = config.get("serverPort");
 
 app.use(corsMiddleware);
 
-app.use("/api/files", streamRouter);
+app.use("/api", streamRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
