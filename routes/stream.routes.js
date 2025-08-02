@@ -5,6 +5,7 @@ const router = new Router();
 const fileController = require("../controllers/fileController");
 
 const authMiddleware = require("../middleware/auth.middleware");
+const yandexApi = require("../services/yandexApi");
 
 router.post(
   "/uploadZipFileYandexStream",
@@ -17,5 +18,7 @@ router.post(
   authMiddleware,
   fileController.uploadZipFileYandexStreamMin
 );
+
+router.post("/proxy-download", yandexApi.downloadFile);
 
 module.exports = router;

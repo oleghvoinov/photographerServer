@@ -100,27 +100,24 @@ class YandexApi {
     }
   }
 
-  async downloadFile(diskPath, localPath) {
+  async downloadFile(res, req) {
+    const { path, name } = req.query;
+
     try {
       const { data } = await api.get(`/resources/download`, {
-        params: { path: diskPath },
+        params: { path: path },
       });
 
       const response = await axios.get(data.href, { responseType: "stream" });
-      const writer = fs.createWriteStream(localPath);
-      response.data.pipe(writer);
 
-      console.log(`Файл ${diskPath} загружен в ${localPath}`);
-
-      return new Promise((resolve, reject) => {
-        writer.on("finish", resolve);
-        writer.on("error", reject);
-      });
-    } catch (error) {
-      console.error(
-        "Ошибка при скачивании:",
-        error.response?.data || error.message
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="${name || "file.zip"}"`
       );
+      response.data.pipe(res);
+    } catch (err) {
+      console.error("Ошибка прокси-скачивания:", err.message);
+      res.status(500).send("Не удалось скачать файл.");
     }
   }
 

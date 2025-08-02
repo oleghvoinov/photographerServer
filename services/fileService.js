@@ -3,15 +3,12 @@ const config = require("config");
 const path = require("path");
 const sharp = require("sharp");
 
+//const pathForBuild = path.join(__dirname, "..", "uploads");
+const pathForBuild = path.join("/var", "www", "uploads");
+
 class FileService {
   createProject(name) {
-    const filePath = path.join(
-      "/var",
-      "www",
-      "uploads",
-      "portfolio",
-      String(name)
-    );
+    const filePath = path.join(pathForBuild, "portfolio", String(name));
 
     return new Promise((resolve, reject) => {
       try {
@@ -22,7 +19,7 @@ class FileService {
 
           return resolve({ message: "File was created" });
         } else {
-          let error = new Error(message);
+          let error = new Error("File was created");
           return reject({ message: "File already exist" });
         }
       } catch (e) {
@@ -32,7 +29,7 @@ class FileService {
     });
   }
   getPathMainPage(file) {
-    return path.join("/var", "www", "uploads", "mainPage", String(file.name));
+    return path.join(pathForBuild, "mainPage", String(file.name));
   }
   async deleteFileMainPage(file) {}
 

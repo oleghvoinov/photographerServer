@@ -48,6 +48,9 @@ const Busboy = require("busboy");
 const unzipper = require("unzipper");
 const { rejects } = require("assert");
 
+//const pathForBuild = path.join(__dirname, "..", "uploads");
+const pathForBuild = path.join("/var", "www", "uploads");
+
 class FileController {
   async createDir(req, res) {
     try {
@@ -148,9 +151,7 @@ class FileController {
 
       try {
         const folderPath = path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(dir.index)
         );
@@ -378,9 +379,7 @@ class FileController {
 
       try {
         const outputPath = path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           `${result.index}`,
           "prewie",
@@ -462,9 +461,7 @@ class FileController {
 
       fs.unlinkSync(
         path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(dir.index),
           "prewie",
@@ -555,9 +552,7 @@ class FileController {
 
       fs.mkdirSync(
         path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(result.index),
           "children",
@@ -568,9 +563,7 @@ class FileController {
 
       fs.writeFileSync(
         path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(result.index),
           "children",
@@ -682,9 +675,7 @@ class FileController {
 
       fs.unlinkSync(
         path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(dir.index),
           "children",
@@ -804,9 +795,7 @@ class FileController {
       if (resultMain.rows.length != 0) {
         const file = resultMain.rows[0].doc;
 
-        fs.unlinkSync(
-          path.join("/var", "www", "uploads", "mainPage", String(file.name))
-        );
+        fs.unlinkSync(path.join(pathForBuild, "mainPage", String(file.name)));
 
         const result = await db.destroy(file._id, file._rev);
 
@@ -915,9 +904,7 @@ class FileController {
         dir.children.push({ index, name, tab: [] });
 
         const filePath = path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(dir.index),
           "children",
@@ -966,9 +953,7 @@ class FileController {
 
       try {
         const folderPath = path.join(
-          "/var",
-          "www",
-          "uploads",
+          pathForBuild,
           "portfolio",
           String(dir.index),
           "children",
@@ -1091,9 +1076,7 @@ class FileController {
               }
 
               const outputPath = path.join(
-                "/var",
-                "www",
-                "uploads",
+                pathForBuild,
                 "portfolio",
                 `${result.index}`,
                 "children",
@@ -1233,9 +1216,7 @@ class FileController {
               }
 
               const outputPath = path.join(
-                "/var",
-                "www",
-                "uploads",
+                pathForBuild,
                 "portfolio",
                 `${result.index}`,
                 "children",
@@ -1428,9 +1409,7 @@ class FileController {
               }
 
               const outputPath = path.join(
-                "/var",
-                "www",
-                "uploads",
+                pathForBuild,
                 "portfolio",
                 `${result.index}`,
                 "children",
@@ -1766,9 +1745,7 @@ class FileController {
             }
 
             const outputPath = path.join(
-              "/var",
-              "www",
-              "uploads",
+              pathForBuild,
               "portfolio",
               `${result.index}`,
               "children",
