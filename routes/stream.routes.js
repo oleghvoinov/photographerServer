@@ -19,6 +19,6 @@ router.post(
   fileController.uploadZipFileYandexStreamMin
 );
 
-router.post("/proxy-download", yandexApi.downloadFile);
+router.get("/proxy-download", yandexApi.downloadFile);
 
 module.exports = router;
