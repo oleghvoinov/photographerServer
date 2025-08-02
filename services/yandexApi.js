@@ -103,6 +103,10 @@ class YandexApi {
   async downloadFile(res, req) {
     const { path, name } = req.query;
 
+    console.log("➡️ Запрос на скачивание:");
+    console.log("path:", req.query.path);
+    console.log("name:", req.query.name);
+
     try {
       const { data } = await api.get(`/resources/download`, {
         params: { path: path },
@@ -116,7 +120,10 @@ class YandexApi {
       );
       response.data.pipe(res);
     } catch (err) {
-      console.error("Ошибка прокси-скачивания:", err.message);
+      console.error(
+        "❌ Ошибка при получении ссылки на скачивание:",
+        err?.response?.data || err.message
+      );
       res.status(500).send("Не удалось скачать файл.");
     }
   }
