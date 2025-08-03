@@ -3,8 +3,8 @@ const config = require("config");
 const path = require("path");
 const sharp = require("sharp");
 
-const pathForBuild = path.join(__dirname, "..", "uploads");
-//const pathForBuild = path.join("/var", "www", "uploads");
+//const pathForBuild = path.join(__dirname, "..", "uploads");
+const pathForBuild = path.join("/var", "www", "uploads");
 
 class FileService {
   createProject(name) {
