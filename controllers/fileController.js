@@ -777,7 +777,7 @@ class FileController {
 
       //fileConvert.mv(pathFile);
 
-      await fs.promises.writeFile(outputPath, fileConvert.data);
+      await fs.promises.writeFile(pathFile, fileConvert.data);
 
       const dbFile = {
         name: fileConvert.name,
