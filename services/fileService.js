@@ -3,8 +3,8 @@ const config = require("config");
 const path = require("path");
 const sharp = require("sharp");
 
-//const pathForBuild = path.join(__dirname, "..", "uploads");
-const pathForBuild = path.join("/var", "www", "uploads");
+const pathForBuild = path.join(__dirname, "..", "uploads");
+//const pathForBuild = path.join("/var", "www", "uploads");
 
 class FileService {
   createProject(name) {
@@ -58,10 +58,38 @@ class FileService {
           fit: "inside",
         })
         .toBuffer();
-
+      console.log(fileImage);
       fileImage.data = outputData;
       // fileImage.name = fileImage.name.split(".")[0] + ".webp";
       // fileImage.mimetype = "image/webp";
+      fileImage.size = outputData.length;
+
+      return fileImage;
+    } catch (error) {
+      console.error(`❌ Ошибка при конвертации изображения: ${error.message}`);
+      throw error;
+    }
+  }
+
+  async convertAndCompressImageToWebp(
+    fileImage,
+    maxWidth = 1920,
+    maxHeight = 1080
+  ) {
+    try {
+      const outputData = await sharp(fileImage.data)
+        .resize({
+          width: maxWidth,
+          height: maxHeight,
+          fit: "inside",
+          withoutEnlargement: true, // Можно добавить, чтобы не увеличивало
+        })
+        .toFormat("webp")
+        .toBuffer();
+
+      fileImage.data = outputData;
+      fileImage.name = fileImage.name.replace(/\.[^/.]+$/, "") + ".webp";
+      fileImage.mimetype = "image/webp";
       fileImage.size = outputData.length;
 
       return fileImage;

@@ -48,8 +48,8 @@ const Busboy = require("busboy");
 const unzipper = require("unzipper");
 const { rejects } = require("assert");
 
-//const pathForBuild = path.join(__dirname, "..", "uploads");
-const pathForBuild = path.join("/var", "www", "uploads");
+const pathForBuild = path.join(__dirname, "..", "uploads");
+//const pathForBuild = path.join("/var", "www", "uploads");
 
 class FileController {
   async createDir(req, res) {
@@ -347,7 +347,19 @@ class FileController {
       const idPerent = req.query.id;
       const file = req.files.file;
 
+      console.log(file);
+
       let result;
+
+      let fileConvert;
+      try {
+        fileConvert = await fileService.convertAndCompressImageToWebp(file);
+      } catch (err) {
+        console.error("❌ Ошибка при конвертации:", err.message);
+        return res.status(500).send("Ошибка при конвертации.");
+      }
+
+      console.log(fileConvert);
 
       try {
         const { rows } = await db.view(dirIdDesign, dirIdIndexName, {
@@ -360,9 +372,9 @@ class FileController {
 
           if (result?.prewieImg != 0) {
             for (let i = 0; i < result.prewieImg.length; i++) {
-              if (result.prewieImg[i].name == file.name) {
+              if (result.prewieImg[i].name == fileConvert.name) {
                 return res.status(400).json({
-                  message: `Изображение с именем ${file.name} уже существует`,
+                  message: `Изображение с именем ${fileConvert.name} уже существует`,
                 });
               }
             }
@@ -383,27 +395,27 @@ class FileController {
           "portfolio",
           `${result.index}`,
           "prewie",
-          String(file.name)
+          String(fileConvert.name)
         );
 
         await fs.promises.mkdir(path.dirname(outputPath), {
           recursive: true,
         });
 
-        file.mv(outputPath);
+        fileConvert.mv(outputPath);
       } catch (err) {
         console.error("❌ Ошибка при загрузке файла:", err.message);
         return res.status(500).send("Ошибка при загрузке файла");
       }
 
       const prewieImg = {
-        name: file.name,
+        name: fileConvert.name,
         path: path.join(
           "/uploads",
           "portfolio",
           `${result.index}`,
           "prewie",
-          String(file.name)
+          String(fileConvert.name)
         ),
         perentId: idPerent,
         type: "Prewie",
@@ -728,40 +740,50 @@ class FileController {
         include_docs: true,
       });
 
+      let fileConvert;
+      try {
+        fileConvert = await fileService.convertAndCompressImageToWebp(file);
+      } catch (err) {
+        console.error("❌ Ошибка при конвертации:", err.message);
+        return res.status(500).send("Ошибка при конвертации.");
+      }
+
+      console.log(fileConvert);
+
       if (resultMain.rows.length != 0) {
         const results = resultMain.rows.map((row) => row.doc);
 
         for (const result of results) {
-          if (result.name == file.name) {
+          if (result.name == fileConvert.name) {
             return res.status(400).json({
-              message: `Изображение с именем ${file.name} уже существует`,
+              message: `Изображение с именем ${fileConvert.name} уже существует`,
             });
           }
         }
       }
 
-      const pathFile = fileService.getPathMainPage(file);
-      const type = file.name.split(".").pop();
+      const pathFile = fileService.getPathMainPage(fileConvert);
+      const type = fileConvert.name.split(".").pop();
 
       const yandexPath = path.join(
         "myPortfolio",
         "mainPage",
-        String(file.name)
+        String(fileConvert.name)
       );
 
       console.log(path.dirname(pathFile));
 
       fs.mkdirSync(path.dirname(pathFile), { recursive: true });
 
-      file.mv(pathFile);
+      fileConvert.mv(pathFile);
 
       const dbFile = {
-        name: file.name,
+        name: fileConvert.name,
         type,
         local: "MainPage",
-        path: path.join("/uploads", "mainPage", String(file.name)),
+        path: path.join("/uploads", "mainPage", String(fileConvert.name)),
         yandexPath: yandexPath,
-        size: file.size,
+        size: fileConvert.size,
         date: new Date(),
         index: index,
       };
@@ -769,7 +791,7 @@ class FileController {
       const insertData = await db.insert(dbFile);
 
       try {
-        await yandexApi.uploadFile(yandexPath, file);
+        await yandexApi.uploadFile(yandexPath, fileConvert);
       } catch (e) {
         console.log("Что то пошло не так при передаче на YandexDisk");
       }
