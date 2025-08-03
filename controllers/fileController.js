@@ -402,7 +402,7 @@ class FileController {
           recursive: true,
         });
 
-        fileConvert.mv(outputPath);
+        await fs.promises.writeFile(outputPath, fileConvert.data);
       } catch (err) {
         console.error("❌ Ошибка при загрузке файла:", err.message);
         return res.status(500).send("Ошибка при загрузке файла");
@@ -775,7 +775,9 @@ class FileController {
 
       fs.mkdirSync(path.dirname(pathFile), { recursive: true });
 
-      fileConvert.mv(pathFile);
+      //fileConvert.mv(pathFile);
+
+      await fs.promises.writeFile(outputPath, fileConvert.data);
 
       const dbFile = {
         name: fileConvert.name,
